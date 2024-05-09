@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Login</title>
+		<link
+			rel="stylesheet"
+			href="/stylesheets/style.css" />
+	</head>
+	<body>
+		<h1>Login</h1>
+		<form action="/login" method="post">
+			<section>
+				<label for="email">Email</label>
+				<input
+					type="text"
+					id="username"
+					autocomplete="username"
+					name="email"
+					required />
+			</section>
+			<section>
+				<label for="current-password">Password</label>
+				<input
+					type="password"
+					id="current-password"
+					name="password"
+					autocomplete="current-password"
+					required />
+			</section>
+			<button type="submit">Log in</button>
+		</form>
+	</body>
+</html>
