@@ -1,8 +1,8 @@
 require('dotenv').config();
-const path = require('path');
-const fs = require('fs');
-const basename = path.basename(__filename);
 const Sequelize = require('sequelize');
+const fs = require('fs');
+const path = require('path');
+const basename = path.basename(__filename);
 
 const connection = {
     database: process.env.DATABASE_NAME,
@@ -13,16 +13,23 @@ const connection = {
     dialect: process.env.DATABASE_DIALECT
 }
 const sequelize = new Sequelize(connection)
-const db = {};
 
+const db = {};
 db.sequelize = sequelize;
 
 fs.readdirSync(__dirname)
     .filter(file => {
-        return (file.indexOf('.' !== 0) && (file.basename !== basename) && (file.slice(-3) === '.js'))
+        return (file.indexOf('.' !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
     })
     .forEach(file => {
-        
+        const model = require(path.join(__dirname, file))(sequelize, Sequelize);
+        db[ model.name ] = model;
     })
+
+    
+Object.keys(modelName => {
+    if (db[ modelName ].associate)
+        db[ modelName ].associate();
+})
 
 module.exports = db;
